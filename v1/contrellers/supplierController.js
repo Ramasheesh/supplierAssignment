@@ -12,7 +12,6 @@ exports.querySuppliers = async (req, res) => {
       });
     }
 
-    // Ensure page and limit have valid values
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
