@@ -8,9 +8,8 @@ const Port = process.env.PORT || 4000;
 const routes = require("./v1/routes/supplierRoutes");
 const DB = require("./conecction/dbConnection");
 
-// Middleware
 app.use(bodyParser.json());
-
+app.use(express.json());
 // Routes
 app.use('/api/supplier', routes);
 

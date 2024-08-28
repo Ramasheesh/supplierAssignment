@@ -1,9 +1,10 @@
 const express = require('express');
-const { querySuppliers } = require('../contrellers/supplierController');
+const {createSupplier, querySuppliers } = require('../contrellers/supplierController');
 
 const router = express.Router();
 
-router.post('/query', querySuppliers);
+router.post('/querySuplier', querySuppliers);
+router.post('/createSupplier', createSupplier); 
 
 module.exports = router;
 
