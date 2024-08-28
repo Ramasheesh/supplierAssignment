@@ -3,7 +3,7 @@ const {createSupplier, querySuppliers } = require('../contrellers/supplierContro
 
 const router = express.Router();
 
-router.post('/querySuplier', querySuppliers);
+router.post('/querySupplier', querySuppliers);
 router.post('/createSupplier', createSupplier); 
 
 module.exports = router;
