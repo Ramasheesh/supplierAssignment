@@ -15,7 +15,7 @@ exports.querySuppliers = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
-    const suppliers = await Supplier.find(query)
+    const suppliers = await Supplier.find({location :query.location ,nature_of_business :query.nature_of_business} )
       .skip((page - 1) * limit)
       .limit(limit);
 
