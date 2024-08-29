@@ -17,7 +17,7 @@ const SupplierSchema = new mongoose.Schema({
     required: true,
   },
   nature_of_business: {
-    type: String,
+    type: [String],
     required: true,
     enum: ['small_scale', 'medium_scale', 'large_scale'],
   },
@@ -27,5 +27,5 @@ const SupplierSchema = new mongoose.Schema({
     enum: ['moulding', '3d_printing', 'casting', 'coating'],
   },
 });
-
+ 
 module.exports = mongoose.model('Supplier', SupplierSchema);

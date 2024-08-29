@@ -1,21 +1,16 @@
 const Supplier = require("../../models/supplier");
+const validate = require('../vailidations/supplierVailidation')
 
 exports.querySuppliers = async (req, res) => {
   try {
-    let query ={};
-     query = req.query;
-    // Basic input validation (can be enhanced with Joi or other validation libraries)
-    if (!query.location || !query.nature_of_business) {
-      return res.status(400).json({
-        error:
-          "Please provide all required fields: location, nature_of_business, and manufacturing_process.",
-      });
-    }
-
+    await validate.supplier(req);
+    let queryData ={};
+    queryData = req.query;
+    console.log('queryData: ', queryData);
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
-    const suppliers = await Supplier.find({location :query.location ,nature_of_business :query.nature_of_business} )
+    const suppliers = await Supplier.find({location :queryData.location ,nature_of_business :queryData.nature_of_business} )
       .skip((page - 1) * limit)
       .limit(limit);
 
@@ -33,6 +28,10 @@ exports.querySuppliers = async (req, res) => {
 
 exports.createSupplier = async (req, res) => {
   try {
+    const validateData = await validate.createSupplier(req.body);
+    if (validateData) {
+        return res.status(400).json(validateData); // Send validation error response
+    }
     const {
       supplier_id,
       company_name,
@@ -41,20 +40,6 @@ exports.createSupplier = async (req, res) => {
       nature_of_business,
       manufacturing_processes,
     } = req.body;
-
-    // Input validation // we can use another validation like joi but we use this because it's small tasks
-    if (
-      !supplier_id ||
-      !company_name ||
-      !website ||
-      !location ||
-      !nature_of_business ||
-      !manufacturing_processes
-    ) {
-      return res
-        .status(400)
-        .json({ error: "Please provide all required fields." });
-    }
 
     const existSupplierId = await Supplier.findOne({
       supplier_id,
