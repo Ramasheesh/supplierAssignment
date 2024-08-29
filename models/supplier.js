@@ -13,7 +13,7 @@ const SupplierSchema = new mongoose.Schema({
   },
   website: String,
   location: {
-    type: String,
+    type: [String],
     required: true,
   },
   nature_of_business: {

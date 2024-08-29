@@ -24,7 +24,7 @@ const createSupplier = async (data) => {
         supplier_id: joi.string().required(),
         company_name: joi.string().required(),
         website: joi.string().required(),
-        location: joi.string().required(),
+        location: joi.array().items(joi.string().required()).required(),
         nature_of_business: joi.array().items(joi.string().valid('small_scale', 'medium_scale', 'large_scale')).required(),
         manufacturing_processes: joi.array().items(joi.string().valid('moulding', '3d_printing', 'casting', 'coating')).required(),
     });
@@ -32,27 +32,24 @@ const createSupplier = async (data) => {
     const validationResult = await validateSchema(data, schema);
 
     if (validationResult) {
-        return validationResult; // Return error as JSON object
+        return validationResult; 
     }
 
-    return false; // Validation passed
+    return false;
 };
 
 const supplier = async (data) => {
     const schema = joi.object({
         company_name: joi.string().optional(),
-        location: joi.string().optional(),
-        nature_of_business: joi.string().optional(),
-        manufacturing_processes: joi.string().optional(),
-    });
-
+        location: joi.array().items(joi.string().trim()).optional(),
+        nature_of_business: joi.array().items(joi.string().valid('small_scale', 'medium_scale', 'large_scale')).optional(),
+        manufacturing_processes: joi.array().items(joi.string().valid('moulding', '3d_printing', 'casting', 'coating')).optional(),
+      });
     const validationResult = await validateSchema(data, schema);
-
     if (validationResult) {
-        return validationResult; // Return error as JSON object
+        return validationResult;
     }
-
-    return false; // Validation passed
+    return false; 
 };
 
 // Export the functions

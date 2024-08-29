@@ -16,6 +16,7 @@ app.use('/api/supplier', routes);
 // server
 app.listen(Port, async () => {
   try {
+    //db connection done than run server
     await DB();
     console.log(`Server is listen at port http://localhost:${Port}`);
   } catch (error) {
